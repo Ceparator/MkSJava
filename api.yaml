@@ -1,0 +1,693 @@
+swagger: "2.0"
+info:
+  description: "YMK creation applicaiton"
+  version: "1.0.0"
+  title: "YMK"
+tags:
+- name: "discipline"
+  description: "discipline services"
+- name: "question"
+  description: "question services"
+- name: "work"
+  description: "work in ymk"
+- name: "speciality"
+  description: "speciality services"
+- name: "ymk"
+  description: "the main part of application"
+- name: "user"
+  description: "Operations about user"
+paths:
+  /discipline:
+    post:
+      tags:
+      - "discipline"
+      summary: "Add discipline to the university"
+      description: "adding discipline"
+      operationId: "addDiscipline"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Discipline object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Discipline"
+      responses:
+        405:
+          description: "Invalid input"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Discipline"
+  /discipline/{disciplineId}:
+    get:
+      tags:
+      - "discipline"
+      summary: "Find discipline by ID"
+      description: "Returns a single discipline"
+      operationId: "getDisciplineById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "disciplineId"
+        in: "path"
+        description: "ID of discipline to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Discipline"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Discipline not found"
+    post:
+      tags:
+      - "discipline"
+      summary: "Updates a discipline"
+      description: ""
+      operationId: "updateDiscipline"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "disciplineId"
+        in: "path"
+        description: "ID of discipline that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the discipline"
+        required: true
+        type: "string"
+      responses:
+        405:
+          description: "Invalid input"
+  /discipline/delete/{disciplineId}:
+    post:
+      tags:
+      - "discipline"
+      summary: "Deletes a discipline"
+      description: ""
+      operationId: "deleteDiscipline"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "disciplineId"
+        in: "path"
+        description: "Discipline id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Discipline not found"
+  /question:
+    post:
+      tags:
+      - "question"
+      summary: "Add question to the university"
+      description: "adding question"
+      operationId: "addQuestion"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Question object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Question"
+      responses:
+        405:
+          description: "Invalid input"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+  /question/{questionId}:
+    get:
+      tags:
+      - "question"
+      summary: "Find question by ID"
+      description: "Returns a single question"
+      operationId: "getQuestionById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Question not found"
+    post:
+      tags:
+      - "question"
+      summary: "Updates a question"
+      description: ""
+      operationId: "updateQuestion"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "question"
+        in: "formData"
+        description: "Updated string of the question"
+        required: true
+        type: "string"
+      responses:
+        405:
+          description: "Invalid input"
+  /question/delete/{questionId}:
+    post:
+      tags:
+      - "question"
+      summary: "Deletes a question"
+      description: ""
+      operationId: "deleteQuestion"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "Question id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Question not found"
+  /work:
+    post:
+      tags:
+      - "work"
+      summary: "Add work to the list"
+      description: "adding work"
+      operationId: "addWork"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Work object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Work"
+      responses:
+        405:
+          description: "Invalid input"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Work"
+  /work/{workId}:
+    get:
+      tags:
+      - "work"
+      summary: "Find work by ID"
+      description: "Returns a single work"
+      operationId: "getWorkById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "workId"
+        in: "path"
+        description: "ID of work to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Work"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Work not found"
+  /work/delete/{workId}:
+    post:
+      tags:
+      - "work"
+      summary: "Deletes a work"
+      description: ""
+      operationId: "deleteWork"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "workId"
+        in: "path"
+        description: "Work id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Work not found"
+  /speciality:
+    post:
+      tags:
+      - "speciality"
+      summary: "Add speciality to the university"
+      description: "adding speciality"
+      operationId: "addSpeciality"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Speciality object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Speciality"
+      responses:
+        405:
+          description: "Invalid input"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Speciality"
+  /speciality/{specialityId}:
+    get:
+      tags:
+      - "speciality"
+      summary: "Find speciality by ID"
+      description: "Returns a single speciality"
+      operationId: "getSpecialityById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "specialityId"
+        in: "path"
+        description: "ID of speciality to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Speciality"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Speciality not found"
+    post:
+      tags:
+      - "speciality"
+      summary: "Updates a speciality"
+      description: ""
+      operationId: "updateSpeciality"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "specialityId"
+        in: "path"
+        description: "ID of speciality that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated string of the speciality"
+        required: false
+        type: "string"
+      - name: "code"
+        in: "formData"
+        description: "updated code of speciality"
+        required: false
+        type: "integer"
+        format: "int64"
+      responses:
+        405:
+          description: "Invalid input"
+  /speciality/delete/{specialityId}:
+    post:
+      tags:
+      - "speciality"
+      summary: "Deletes a speciality"
+      description: ""
+      operationId: "deleteSpeciality"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "specialityId"
+        in: "path"
+        description: "Speciality id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Speciality not found"
+  /ymk:
+    post:
+      tags:
+      - "ymk"
+      summary: "Add ymk to the university"
+      description: "adding ymk"
+      operationId: "addYMK"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "YMK object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/YMK"
+      responses:
+        405:
+          description: "Invalid input"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/YMK"
+  /ymk/{ymkId}:
+    get:
+      tags:
+      - "ymk"
+      summary: "Find ymk by ID"
+      description: "Returns a single ymk"
+      operationId: "getYMKById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ymkId"
+        in: "path"
+        description: "ID of ymk to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/YMK"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "YMK not found"
+  /ymk/delete/{ymkId}:
+    post:
+      tags:
+      - "ymk"
+      summary: "Deletes a ymk"
+      description: ""
+      operationId: "deleteYMK"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ymkId"
+        in: "path"
+        description: "YMK id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "YMK not found"
+  /user/register:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "Create New User"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "formData"
+        description: "user login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "formData"
+        description: "user password"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "formData"
+        description: "user firstName"
+        required: true
+        type: "string"
+      - name: "surename"
+        in: "formData"
+        description: "user lastname"
+        required: true
+        type: "string"
+      - name: "phone"
+        in: "formData"
+        description: "user phone number"
+        required: true
+        type: "string"
+      responses:
+        default:
+          description: "successful operation"
+  /user/login:
+    post:
+      tags:
+      - "user"
+      summary: "Log into system"
+      description: "Log into system"
+      operationId: "loginUser"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "formData"
+        description: "user login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "formData"
+        description: "user password"
+        required: true
+        type: "string"
+      responses:
+        default:
+          description: "successful operation"
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user by username"
+      description: ""
+      operationId: "getUserByName"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+  /user/role/{rolename}:
+    get:
+      tags:
+      - "user"
+      summary: "Get all users in role"
+      description: ""
+      operationId: "getUsersInRole"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "rolename"
+        in: "path"
+        description: "The role that needs to be fetched"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items: {
+                $ref: "#/definitions/User"
+              }
+        400:
+          description: "Invalid role supplied"
+        404:
+          description: "Users are not found"
+definitions:
+  Discipline:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        description: "name of discipline"
+    xml:
+      name: "Discipline"
+  Question:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      ymkId:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Question"
+  Speciality:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      code:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Speciality"
+  Work:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      workType:
+        type: "string"
+      hours:
+        type: "integer"
+        format: "int64"
+      week:
+        type: "integer"
+        format: "int64"
+      ymkId:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Work"
+  YMK:
+    type: "object"
+    required:
+    - "discipline"
+    - "speciality"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      discipline:
+        type: "integer"
+        format: "int64"
+      speciality:
+        type: "integer"
+        format: "int64"
+      questions:
+        type: "array"
+        items:
+          type: "integer"
+      works:
+        type: "array"
+        items:
+          type: "integer"
+    xml:
+      name: "YMK"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      role:
+        type: "string"
+        description: "User role"
+    xml:
+      name: "User"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
